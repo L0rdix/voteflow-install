@@ -128,6 +128,9 @@ msg_ok "Container started"
 msg_info "Waiting for network inside container..."
 sleep 10
 
+CT_IP=$(pct exec "$CTID" -- ip -4 addr show eth0 2>/dev/null \
+  | grep -oP '(?<=inet\s)\d+(\.\d+){3}' || echo "")
+
 # ── Install Docker ────────────────────────────────────────────────────────────
 msg_info "Installing Docker (this can take a few minutes)..."
 pct exec "$CTID" -- bash -lc "
@@ -163,6 +166,9 @@ SPRING_MAIL_HOST=smtp.gmail.com
 SPRING_MAIL_PORT=587
 SPRING_MAIL_USERNAME=${MAIL_USER}
 SPRING_MAIL_PASSWORD=${MAIL_PASS}
+
+# Base URL used in email links sent to voters
+FRONTEND_URL=http://${CT_IP}:8080
 
 # H2 file database — data persists in /opt/voteflow/database/
 SPRING_DATASOURCE_URL=jdbc:h2:file:./database/db;DB_CLOSE_DELAY=-1
@@ -209,8 +215,6 @@ echo -e "   URL        : ${BL}http://${CT_IP}:8080${CL}"
 echo -e "   CTID       : ${YW}${CTID}${CL}  (Hostname: ${CT_HOST})"
 echo -e "   Config     : ${YW}/opt/voteflow/.env${CL}  (inside the container)"
 echo
-echo -e " ${YW}Set FRONTEND_URL in .env to your public address so email links work:${CL}"
-echo -e "   e.g. FRONTEND_URL=http://${CT_IP}:8080"
 echo -e "   Logs       : ${YW}docker logs voteflow${CL}  (run inside the container)"
 echo
 echo -e " ${YW}To open a shell in the container:${CL}"

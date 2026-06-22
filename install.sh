@@ -29,17 +29,11 @@ INFO=" ${YW}➜${CL}"
 
 header_info() {
   clear
-  echo -e "${BL}"
-  cat <<'BANNER'
-  __   __    _       _____ _
-  \ \ / /__ | |_ ___|  ___| | _____      __
-   \ V / _ \| __/ _ \ |_  | |/ _ \ \ /\ / /
-    | | (_) | ||  __/  _| | | (_) \ V  V /
-    |_|\___/ \__\___|_|   |_|\___/ \_/\_/
-
-  Proxmox LXC Installer
-BANNER
-  echo -e "${CL}"
+  echo
+  echo -e "  ${BL}╔══════════════════════════════════════╗${CL}"
+  echo -e "  ${BL}║${CL}  ${GN}VoteFlow${CL} — Proxmox LXC Installer  ${BL}║${CL}"
+  echo -e "  ${BL}╚══════════════════════════════════════╝${CL}"
+  echo
 }
 
 msg_info()  { echo -e "${INFO} ${YW}${*}${CL}"; }

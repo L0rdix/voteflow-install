@@ -1,6 +1,6 @@
 # VoteFlow — Proxmox LXC Installer
 
-One-command installer for [VoteFlow](https://gitlab.com/your-gitlab-group/26ss-se-pr-qse-09) on Proxmox VE.
+One-command installer for [VoteFlow](https://vote.setman.at) on Proxmox VE.
 
 Paste this into your Proxmox host shell:
 

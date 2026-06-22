@@ -187,6 +187,7 @@ msg_ok "Image pulled"
 msg_info "Starting VoteFlow..."
 pct exec "$CTID" -- docker run -d \
   --name voteflow \
+  --security-opt apparmor=unconfined \
   --env-file /opt/voteflow/.env \
   -p 8080:8080 \
   -v /opt/voteflow/database:/app/database \
@@ -217,5 +218,5 @@ echo -e "   pct exec ${CTID} -- bash"
 echo
 echo -e " ${YW}To update VoteFlow to the latest version:${CL}"
 echo -e "   pct exec ${CTID} -- bash -c \\"
-echo -e "     'docker pull ${DOCKER_IMAGE} && docker rm -f voteflow && docker run -d --name voteflow --env-file /opt/voteflow/.env -p 8080:8080 -v /opt/voteflow/database:/app/database -v /opt/voteflow/log:/app/log --restart unless-stopped ${DOCKER_IMAGE}'"
+echo -e "     'docker pull ${DOCKER_IMAGE} && docker rm -f voteflow && docker run -d --name voteflow --security-opt apparmor=unconfined --env-file /opt/voteflow/.env -p 8080:8080 -v /opt/voteflow/database:/app/database -v /opt/voteflow/log:/app/log --restart unless-stopped ${DOCKER_IMAGE}'"
 echo
